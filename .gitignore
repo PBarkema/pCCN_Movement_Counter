@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Data (Never upload these)
+data/
+*.mp4
+*.pth
+*.pt
+
+# Environments
+.env
+.venv/
+venv/
