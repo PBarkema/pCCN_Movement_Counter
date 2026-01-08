@@ -5,7 +5,7 @@
 ---
 
 <p align="center">
-  <img src="reports/figures/pose_estimation.png" width="600" title="Pose Estimation">
+  <img src="reports/figures/project_collage.png" width="600" title="Pose Estimation">
 </p>
 
 ## 1. Executive Summary
