@@ -53,7 +53,7 @@ The video data has staggering dimensionality of up to 2,021,760,000 values per v
 I discovered the YOLO11 pose estimation model (https://docs.ultralytics.com/tasks/pose/) that can estimate human body joints in videos. Using this model, the spatial dimensions can be reduced from millions to just 17 pairs of absolute x and y coordinates. How do we extract information from this data?
 
 <p align="center">
-  <img src="assets/pose_estimation.png" width="600" title="Pose Estimation">
+  <img src="reports/figures/pose_estimation.png" width="600" title="Pose Estimation">
 </p>
 
 ### Pairwise Distance Matrix: from joint coordinates to information
@@ -64,7 +64,7 @@ Despite the camera position being still and constant, human movement is not defi
 Raw pose estimation data is noisy. A keypoint might jump 10 pixels between frames due to estimation jitter, and users may film from the front, side, or top. Luckily, the relationship between movement and repetitions is simple. To capture large amounts of variance from repetitive movements into lower dimensional space while denoising, we can process the Movement Matrix with Principal Component Analysis. Can we capture the main axis of variance that is visible in push up repetitions? One large challenge is the different camera angles. How key points interact will be different depending on the video. What do we see if we visualize the first principal component of each video separately?
 
 <p align="center">
-  <img src="assets/noisy_PCA.png" width="600" title="Axis of Movement (noisy)">
+  <img src="reports/figures/noisy_PCA.png" width="600" title="Axis of Movement (noisy)">
 </p>
 
 **The Insight:**
@@ -75,7 +75,7 @@ Crucially, we see a clear relationship between the true number of push up repeti
 *What was first a billion-dimensional learning problem is now a one-dimensional peak counting task on time series data.*
 
 <p align="center">
-  <img src="assets/denoised_PCA.png" width="600" title="Axis of Movement (denoised)">
+  <img src="reports/figures/denoised_PCA.png" width="600" title="Axis of Movement (denoised)">
 </p>
 
 ### Signal processing predictions
@@ -85,7 +85,7 @@ We substituted a learning model with a science and physics informed pipeline, an
 Example image of counting peaks:
  
 <p align="center">
-  <img src="assets/counting_peaks.png" width="600" title="Counting Peaks">
+  <img src="reports/figures/counting_peaks.png" width="600" title="Counting Peaks">
 </p>
 
 ## 3. Uncertainty Estimation in Deep Learning
@@ -115,9 +115,14 @@ $$
 
 This forces the model to learn useful uncertainty that includes **Aleatoric Uncertainty** - the uncertainty inherent in the data. Does this informative error correlate with validation error?
 
-**PICP**
+**PICP (Prediction Interval Coverage Probability)**
 
-**MPIW**
+PICP measures the percentage of times the true value (the actual push-up count) falls within the uncertainty bounds the model predicted. It tells you if your model is calibrated.
+
+For a PCP of 95% the model is 95% sure the count is between a certain bandwidth (the MPIW)," then 95% of the time, the true count strictly needs to be between 10 and 12.
+
+**MPIW (Mean Prediction Interval Width)**
+MPIW measures the average size of your uncertainty bounds. It defines the bandwidth of the PICP. When 10 push ups are predicted, with a MPIW of 1 and a PCPI of 95%, then 95% of the time the true count is between 9 and 11 repetitions.
 
 ---
 
@@ -134,7 +139,7 @@ The model was evaluated on a hold-out validation set to measure the Mean Average
 | **MPIW** | **2.20 reps** | The "Safety Zone" is very narrow ($\pm 1.1$ reps). |
 
 <p align="center">
-  <img src="calibration.png" width="600" title="uncertainty calibration">
+  <img src="reports/figures/calibration.png" width="600" title="uncertainty calibration">
 </p>
 
 The PICP is highly accurate and the MPIW is narrow, implying it learnt a meaningful representation (both meaningful uncertainty and meaningful predictions) (see Model's predictions and confidnece intervals below). However, the correlation between its learnt uncertainty and the remaining error in validation is low. It could be due to very low Prediction Errors. We now validate whether the model learns meaningful uncertainty for adversarial noise simulations.
@@ -145,7 +150,7 @@ To prove the uncertainty output is "intelligent" and not just a learned constant
 **Hypothesis:** As noise increases, the model's predicted $\sigma$ should increase.
 
 <p align="center">
-  <img src="assets/stress_test.png" width="600" title="stress_test">
+  <img src="reports/figures/stress_test.png" width="600" title="stress_test">
 </p>
 
 **Conclusion:** The model correctly identifies data degradation. With increasing noise, the predicted uncertainty spikes, proving the model can learn how uncertain it is about data in real-time.
@@ -154,7 +159,7 @@ To prove the uncertainty output is "intelligent" and not just a learned constant
 To show the Attention Channel is not cheating by only using the Movement Axis (feature 324), we visualize its weights to indicate feature importance.
 
 <p align="center">
-  <img src="assets/attention_features.png" width="600" title="Axis of Movement (denoised)">
+  <img src="reports/figures/attention_features.png" width="600" title="Axis of Movement (denoised)">
 </p>
 
 
