@@ -1,14 +1,77 @@
-# Python
+# --- Python & Runtime ---
 __pycache__/
 *.py[cod]
+*$py.class
+*.so
+.Python
 
-# Data (Never upload these)
-data/
+# --- Environments ---
+env/
+venv/
+.venv/
+conda-env/
+
+# --- Jupyter Notebooks ---
+# We want to keep your distinct notebooks, but not the autosave checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# --- Data (CRITICAL) ---
+# Ignore all raw and processed data
+data/raw/*
+data/processed/*
+data/temp/*
+
+# Exception: Keep the .gitkeep files so the folder structure is tracked
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Ignore specific large video formats wherever they are
 *.mp4
+*.avi
+*.mov
+*.mkv
+*.webm
+
+# --- Model Weights ---
+# You are hosting these on Hugging Face; do not push them to GitHub.
 *.pth
 *.pt
+*.bin
+*.ckpt
+*.h5
+*.onnx
+*.safetensors
+models/saved_weights/
 
-# Environments
+# --- IDEs & Editors ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- Logs & Outputs ---
+*.log
+runs/
+wandb/
+mlruns/
+lightning_logs/
+
+# --- Hugging Face ---
+# Ensure you never upload your access tokens
 .env
-.venv/
-venv/
+token.txt
+huggingface_token
+
+# --- Reports ---
+# We usually WANT to commit figures for the README, but ignore heavy SVGs or raw data
+# (If you generate thousands of attention maps, ignore the folder and pick a few manually)
+# reports/figures/* ```
+
+### Important Next Step
+If you have already committed some of these files (like `.ipynb_checkpoints` or a `.pth` file) to git, simply adding them to `.gitignore` won't remove them. You must run this command in your terminal to clear the cache:
+
+```bash
+git rm -r --cached .
+git add .
+git commit -m "Fix .gitignore and remove cached files"
