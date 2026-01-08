@@ -16,7 +16,7 @@ Capturing human movements in high-quality video requires the reduction of ultra 
 * **Confidence Calibration:** Achieved **>90% Prediction Interval Coverage Probability (PICP)**, meaning the true answer always falls within the model's predicted confidence.
 * **Precision:** Maintained an ultra-tight Mean Prediction Interval Width (MPIW) of **$\pm 1.1$ reps**.
 * **Self-Awareness validation:** Validated via adversarial stress testing; the model correctly identifies noisy inputs by spiking its uncertainty metric (correlation > 0.9 under stress).
-* **Accuracy:** Achieved **>90% Accuracy** and reduced training time to **0ms** by reducing the problem to signal processing through scientific investigation and use of existing models.
+* **Accuracy:** Achieved **>90% Accuracy** and reduced training time to **0ms** by reducing the problem to signal processing through scientific investigation and use of existing models as Perception Head to invoke Teacher-Learner signals.
 
 ---
 
