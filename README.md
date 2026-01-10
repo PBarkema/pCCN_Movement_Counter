@@ -1,4 +1,4 @@
-# Human Action Analysis: signal processing to Probabilistic Deep Learning
+# DeepCount-UQ Human Action Analysis: signal processing to Probabilistic Deep Learning
 
 **Extreme dimensionality reduction and uncertainty quantification in deep learning in unconstrained video, including expert-guided learning and Confidence Calibration.**
 
@@ -84,7 +84,7 @@ Crucially, we see a clear relationship between the true number of push up repeti
 
 ### Signal processing predictions
 
-We substituted a learning model with a science and physics informed pipeline, and without need for a training set we apply it to all video data with an accuracy of 93.33% with a Mean Squared Error of 0.0667.
+We substituted a learning model with the above science and physics informed pipeline, and without need for a training set we apply it to all video data with an accuracy of 93.33% with a Mean Squared Error of 0.0667.
 
 Example image of counting peaks:
  
